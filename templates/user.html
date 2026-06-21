@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Área do Usuário</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f9f9f9;padding:20px}
+    .card{max-width:600px;margin:40px auto;padding:24px;border-radius:8px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+    .actions{margin-top:18px}
+    .btn{padding:8px 14px;border-radius:6px;border:none;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Olá, {{ username }}!</h1>
+    <p>Esta é sua área de usuário. Adicione aqui suas tarefas e informações.</p>
+    <div class="actions">
+      <a href="/user/tasks"><button class="btn btn-primary">Minha lista de tarefas</button></a>
+      <a href="/logout"><button class="btn">Sair</button></a>
+    </div>
+  </div>
+</body>
+</html>

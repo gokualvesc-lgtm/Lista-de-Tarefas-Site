@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lista de Tarefas</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f2f4f7;padding:20px}
+    .card{max-width:700px;margin:40px auto;padding:24px;border-radius:10px;background:#fff;box-shadow:0 3px 16px rgba(0,0,0,0.08)}
+    .header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    h1{margin:0}
+    .btn{padding:10px 16px;border:none;border-radius:8px;cursor:pointer}
+    .btn-primary{background:#007bff;color:#fff}
+    .btn-secondary{background:#6c757d;color:#fff}
+    .btn-danger{background:#dc3545;color:#fff}
+    .task-list{list-style:none;padding:0;margin:24px 0}
+    .task-item{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border:1px solid #e1e5ea;border-radius:8px;margin-bottom:10px;background:#f9fbff}
+    .task-title{margin:0;font-size:16px}
+    .task-actions{display:flex;gap:8px;align-items:center}
+    .task-actions form{margin:0}
+    form.add-task{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    form.add-task input{flex:1;padding:10px;border:1px solid #cbd2db;border-radius:8px}
+    form.add-task button{min-width:140px}
+    .actions a{color:#007bff;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div>
+        <h1>Minhas tarefas</h1>
+        <p>Usuário: {{ username }}</p>
+      </div>
+      <div class="actions">
+        <a href="/user"><button class="btn">Voltar</button></a>
+        <a href="/logout"><button class="btn btn-danger">Sair</button></a>
+      </div>
+    </div>
+
+    {% if tasks %}
+      <ul class="task-list">
+        {% for task in tasks %}
+          <li class="task-item">
+            <span class="task-title">{{ task[1] }}</span>
+            <div class="task-actions">
+              <form method="post" action="/user/tasks/toggle" style="margin:0">
+                <input type="hidden" name="task_id" value="{{ task[0] }}">
+                <button type="submit" class="btn btn-secondary">
+                  {% if task|length > 2 and task[2] %}Concluído{% else %}Não concluído{% endif %}
+                </button>
+              </form>
+              <form method="post" action="/user/tasks/remove" style="margin:0">
+                <input type="hidden" name="task_id" value="{{ task[0] }}">
+                <button type="submit" class="btn btn-danger">Remover</button>
+              </form>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Você ainda não tem tarefas. Adicione uma abaixo.</p>
+    {% endif %}
+
+    <form class="add-task" method="post" action="/user/tasks/add">
+      <input type="text" name="titulo" placeholder="Nova tarefa" required>
+      <button type="submit" class="btn btn-primary">Adicionar tarefa</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <style>body{font-family:Arial,Helvetica,sans-serif;padding:20px}</style>
+</head>
+<body>
+  <h1>Login</h1>
+  <form method="post" action="/login/submited">
+    <div>
+      <label>User</label><br>
+      <input type="text" name="username" required>
+    </div>
+    <div>
+      <label>Senha</label><br>
+      <input type="password" name="password" required>
+    </div>
+    {% if erro %}
+        <p style="color:red">{{ erro }}</p>
+    {% endif %}
+    <div style="margin-top:8px">
+      <button type="submit">Entrar</button>
+    </div>
+  </form>
+</body>
+</html>
